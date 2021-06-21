@@ -115,7 +115,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 	 */
 	public function resetInstallPath(Event $event): void {
 		if($this->installer instanceof GlobalInstaller) {
-			$this->installer->forceGlobalPath(true);
+			$this->installer->forceGlobalPath(false);
 		}
 	}
 }
