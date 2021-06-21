@@ -5,8 +5,8 @@
 	"properties": {
 		"path": {
 			"type": "string",
-			"description": "Path to global installer directory.",
-			"default": "/opt/kirra/composer"
+			"description": "Path to install directory.",
+			"default": "/usr/lib/composer/vendor"
 		},
 		"exclude": {
 			"type": "array",
