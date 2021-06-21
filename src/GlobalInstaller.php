@@ -3,6 +3,7 @@
 namespace Iwink\ComposerGlobalInstaller;
 
 use Composer\Composer;
+use Composer\DependencyResolver\Operation\UninstallOperation;
 use Composer\Installer\LibraryInstaller;
 use Composer\IO\IOInterface;
 use Composer\Package\PackageInterface;
@@ -115,6 +116,33 @@ class GlobalInstaller extends LibraryInstaller {
 		$package->setTransportOptions(['relative' => false]);
 
 		return parent::download($package, $prevPackage);
+	}
+
+	/**
+	 * @inheritDoc
+	 *
+	 * Remove symlinks to global installed packages.
+	 *
+	 * @since $ver$
+	 */
+	protected function removeCode(PackageInterface $package): ?PromiseInterface {
+		$promise = parent::removeCode($package);
+
+		// Remove symlinks to global directory
+		$localPath = parent::getInstallPath($package);
+		$globalPath = $this->getGlobalPath($package);
+		if (Filesystem::isReadable($globalPath) && $this->filesystem->isSymlinkedDirectory($localPath)) {
+			if (!$promise instanceof PromiseInterface) {
+				$promise = \React\Promise\resolve();
+			}
+
+			$promise->then(function () use ($localPath, $package): void {
+				$this->filesystem->remove($localPath);
+				$this->io->write(sprintf('  - %s, removing symlink', UninstallOperation::format($package)));
+			});
+		}
+
+		return $promise;
 	}
 
 	/**
