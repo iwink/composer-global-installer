@@ -103,7 +103,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 	 * @param Event $event The event.
 	 */
 	public function setInstallPath(Event $event): void {
-		if($this->installer instanceof GlobalInstaller) {
+		if ($this->installer instanceof GlobalInstaller) {
 			$this->installer->forceGlobalPath(true);
 		}
 	}
@@ -114,7 +114,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 	 * @param Event $event The event.
 	 */
 	public function resetInstallPath(Event $event): void {
-		if($this->installer instanceof GlobalInstaller) {
+		if ($this->installer instanceof GlobalInstaller) {
 			$this->installer->forceGlobalPath(false);
 		}
 	}
