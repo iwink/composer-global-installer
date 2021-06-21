@@ -1,0 +1,22 @@
+{
+	"title": "Global installer options",
+	"type": "object",
+	"additionalProperties": false,
+	"properties": {
+		"path": {
+			"type": "string",
+			"description": "Path to global installer directory.",
+			"default": "/opt/kirra/composer"
+		},
+		"exclude": {
+			"type": "array",
+			"description": "Array of package names that should be installed local.",
+			"default": [],
+			"items": {
+				"type": "string",
+				"description": "Package name, including 'vendor-name/' prefix.",
+				"pattern": "^[a-z0-9]([_.-]?[a-z0-9]+)*/[a-z0-9](([_.]?|-{0,2})[a-z0-9]+)*$"
+			}
+		}
+	}
+}
