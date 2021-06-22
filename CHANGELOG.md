@@ -6,9 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2021-06-22
+### Fixed
+- Valid JSON examples.
+
 ## [0.1.0] - 2021-06-22
 ### Added
 - Support for a global installer directory.
 
-[Unreleased]: https://github.com/iwink/composer-global-installer/compare/v0.1.0...main
+[Unreleased]: https://github.com/iwink/composer-global-installer/compare/v0.1.1...main
+[0.1.1]: https://github.com/iwink/composer-global-installer/releases/tag/v0.1.1
 [0.1.0]: https://github.com/iwink/composer-global-installer/releases/tag/v0.1.0
