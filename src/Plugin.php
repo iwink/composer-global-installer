@@ -186,17 +186,17 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 	 */
 	public static function getSubscribedEvents(): array {
 		return [
-			PackageEvents::POST_PACKAGE_INSTALL => 'generateAutoloader',
-			PackageEvents::POST_PACKAGE_UPDATE => 'generateAutoloader',
+			PackageEvents::POST_PACKAGE_INSTALL => 'dumpAutoloader',
+			PackageEvents::POST_PACKAGE_UPDATE => 'dumpAutoloader',
 		];
 	}
 
 	/**
-	 * Triggers an additional autoload generation when required.
+	 * Triggers an additional autoloader dump when required.
 	 * @since $ver$
 	 * @param PackageEvent $event The event.
 	 */
-	public function generateAutoloader(PackageEvent $event): void {
+	public function dumpAutoloader(PackageEvent $event): void {
 		$operation = $event->getOperation();
 		if (!$operation instanceof InstallOperation && !$operation instanceof UpdateOperation) {
 			return;
