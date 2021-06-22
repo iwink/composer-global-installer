@@ -50,7 +50,3 @@ To disable the entire plugin, you can pass `false` to the `extra.global-installe
 }
 
 ```
-
-## Caveats
-
-Make sure the global vendor directory is writable
