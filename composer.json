@@ -2,6 +2,11 @@
 	"name": "iwink/composer-global-installer",
 	"type": "composer-plugin",
 	"description": "Plugin to install Composer dependencies in a global directory.",
+	"keywords": [
+		"composer",
+		"global installer",
+		"plugin"
+	],
 	"license": "MIT",
 	"authors": [
 		{
