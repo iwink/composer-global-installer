@@ -60,14 +60,23 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 	 * @since $ver$
 	 */
 	public function activate(Composer $composer, IOInterface $io): void {
-		// Skip the entire plugin if the global-vendor-dir is set to "false".
-		$options = $composer->getPackage()->getExtra()['global-installer'] ?? [];
+		// Try to load global options
+		$globalOptions = [];
+		$globalComposer = $composer->getPluginManager()->getGlobalComposer();
+		if (null !== $globalComposer) {
+			$globalOptions = $globalComposer->getPackage()->getExtra()['global-installer'] ?? [];
+		}
+
+		// Load options, skip the entire plugin if options are set to "false"
+		$options = $composer->getPackage()->getExtra()['global-installer'] ?? $globalOptions;
 		if (false === $options) {
+			$io->notice(sprintf('<info>The "%s" plugin is disabled</info>', self::PACKAGE_NAME));
+
 			return;
 		}
 
-		// Validate options
-		$options = (object) $options;
+		// Merge & validate options
+		$options = (object) array_merge_recursive(!is_array($globalOptions) ? [] : $globalOptions, $options);
 		$validator = new Validator();
 		$validator->validate(
 			$options, (object) ['$ref' => 'file://' . dirname(__DIR__) . '/res/schema.json'],
@@ -76,7 +85,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 
 		if (!$validator->isValid()) {
 			$io->write('');
-			$io->write(sprintf('<error>Invalid options for %s, plugin disabled:</error>', self::PACKAGE_NAME));
+			$io->write(sprintf('<error>Invalid options for "%s", plugin disabled:</error>', self::PACKAGE_NAME));
 			foreach ($validator->getErrors() as $error) {
 				$io->write(sprintf(' * [%s] %s.', $error['property'], $error['message']));
 			}
@@ -90,7 +99,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 		$path = $options->path;
 		if (!Filesystem::isReadable($path) || !is_writable($path)) {
 			$io->write('');
-			$io->write(sprintf('<error>Path "%s" is not writable for %s, plugin disabled.</error>', $path, self::PACKAGE_NAME));
+			$io->write(sprintf('<error>Path "%s" is not writable for "%s", plugin disabled.</error>', $path, self::PACKAGE_NAME));
 			$io->write('');
 
 			return;
@@ -123,7 +132,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 				$command = $command ? $app->find($command) : null;
 
 				// Only store for require, install & update commands
-				if (!in_array($command->getName(), ['require', 'install', 'update'])) {
+				if (null === $command || !in_array($command->getName(), ['require', 'install', 'update'])) {
 					continue;
 				}
 
