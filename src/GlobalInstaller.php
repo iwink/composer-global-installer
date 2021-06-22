@@ -60,7 +60,7 @@ class GlobalInstaller extends LibraryInstaller {
 	 * @since $ver$
 	 */
 	public function getInstallPath(PackageInterface $package): string {
-		// Path repositories are always installed local
+		// Path repositories are always installed locally
 		if ('path' === $package->getDistType()) {
 			return parent::getInstallPath($package);
 		}
@@ -86,7 +86,7 @@ class GlobalInstaller extends LibraryInstaller {
 	/**
 	 * @inheritDoc
 	 *
-	 * For supported packages, make sure they're installed global. The local installed packages are symlinks.
+	 * For supported packages, make sure they're installed globally. The locally installed packages are symlinks.
 	 *
 	 * @since $ver$
 	 */
@@ -95,7 +95,7 @@ class GlobalInstaller extends LibraryInstaller {
 			return parent::download($package, $prevPackage);
 		}
 
-		// Make sure the package is installed global
+		// Make sure the package is installed globally
 		$path = $this->getGlobalPath($package);
 		if (!Filesystem::isReadable($path)) {
 			SyncHelper::downloadAndInstallPackageSync(
@@ -106,7 +106,7 @@ class GlobalInstaller extends LibraryInstaller {
 			);
 		}
 
-		// Change package to path repository and install local
+		// Change package to path repository and install locally
 		$package->setDistType('path');
 		$package->setDistUrl($path);
 		$package->setTransportOptions(['relative' => false]);
@@ -117,7 +117,7 @@ class GlobalInstaller extends LibraryInstaller {
 	/**
 	 * @inheritDoc
 	 *
-	 * Remove symlinks to global installed packages.
+	 * Remove symlinks to globally installed packages.
 	 *
 	 * @since $ver$
 	 */

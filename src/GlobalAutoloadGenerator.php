@@ -11,12 +11,12 @@ use Composer\Repository\InstalledRepositoryInterface;
 use Composer\Util\Filesystem;
 
 /**
- * Autoload generator for global installed packages.
+ * Autoload generator for globally installed packages.
  * @since $ver$
  */
 class GlobalAutoloadGenerator extends AutoloadGenerator {
 	/**
-	 * Array of global installed package paths.
+	 * Array of globally installed package paths.
 	 * @since $ver$
 	 * @var string[]
 	 */
@@ -25,7 +25,7 @@ class GlobalAutoloadGenerator extends AutoloadGenerator {
 	/**
 	 * @inheritDoc
 	 *
-	 * Builds an array of global installed package path which is used to determine the autoloader paths.
+	 * Builds an array of globally installed package-paths which is used to determine the autoloader paths.
 	 *
 	 * @since $ver$
 	 */
@@ -70,7 +70,7 @@ class GlobalAutoloadGenerator extends AutoloadGenerator {
 	/**
 	 * @inheritDoc
 	 *
-	 * If the requested path is a valid global installed path, return it without modification.
+	 * If the requested path is a valid global install path, return it without modification.
 	 *
 	 * @since $ver$
 	 */
