@@ -33,13 +33,6 @@ class GlobalInstaller extends LibraryInstaller {
 	private array $excludedPackages;
 
 	/**
-	 * Whether to force a global path for supported packages.
-	 * @since $ver$
-	 * @var bool
-	 */
-	private bool $forceGlobalPath = false;
-
-	/**
 	 * Creates a new installer.
 	 * @since $ver$
 	 * @param IOInterface $io IO.
@@ -58,12 +51,15 @@ class GlobalInstaller extends LibraryInstaller {
 	 * @inheritDoc
 	 * @since $ver$
 	 */
-	public function getInstallPath(PackageInterface $package): string {
-		// If a global path is forced and supported, return it
-		if ($this->forceGlobalPath && $this->supportsGlobalPath($package)) {
-			return $this->getGlobalPath($package);
-		}
+	public function supports($packageType): bool {
+		return !in_array($packageType, ['composer-installer', 'composer-plugin', 'metapackage']);
+	}
 
+	/**
+	 * @inheritDoc
+	 * @since $ver$
+	 */
+	public function getInstallPath(PackageInterface $package): string {
 		// Path repositories are always installed local
 		if ('path' === $package->getDistType()) {
 			return parent::getInstallPath($package);
@@ -127,17 +123,18 @@ class GlobalInstaller extends LibraryInstaller {
 	 */
 	protected function removeCode(PackageInterface $package): ?PromiseInterface {
 		$promise = parent::removeCode($package);
+		if (!$this->supportsGlobalPath($package) || 'path' !== $package->getDistType()) {
+			return $promise;
+		}
 
-		// Remove symlinks to global directory
-		$localPath = parent::getInstallPath($package);
-		$globalPath = $this->getGlobalPath($package);
-		if (Filesystem::isReadable($globalPath) && $this->filesystem->isSymlinkedDirectory($localPath)) {
+		$path = $this->getInstallPath($package);
+		if ($this->filesystem->isSymlinkedDirectory($path)) {
 			if (!$promise instanceof PromiseInterface) {
 				$promise = \React\Promise\resolve();
 			}
 
-			$promise->then(function () use ($localPath, $package): void {
-				$this->filesystem->remove($localPath);
+			$promise->then(function () use ($package): void {
+				$this->filesystem->remove($this->getInstallPath($package));
 				$this->io->write(sprintf('  - %s, removing symlink', UninstallOperation::format($package)));
 			});
 		}
@@ -146,30 +143,22 @@ class GlobalInstaller extends LibraryInstaller {
 	}
 
 	/**
-	 * Force a global path instead of determining it.
+	 * Returns the global installer base path.
 	 * @since $ver$
-	 * @param bool $forceGlobalPath The value.
+	 * @return string The path.
 	 */
-	public function forceGlobalPath(bool $forceGlobalPath): void {
-		$this->forceGlobalPath = $forceGlobalPath;
+	public function getBasePath(): string {
+		return $this->path;
 	}
 
 	/**
-	 * Get global path for package.
+	 * Returns the global path for a package.
 	 * @since $ver$
 	 * @param PackageInterface $package Package.
-	 * @return string Global path.
+	 * @return string The path.
 	 */
 	private function getGlobalPath(PackageInterface $package): ?string {
-		return sprintf('%s/%s/%s', $this->path, $package->getPrettyName(), $package->getPrettyVersion());
-	}
-
-	/**
-	 * @inheritDoc
-	 * @since $ver$
-	 */
-	public function supports($packageType): bool {
-		return !in_array($packageType, ['composer-installer', 'composer-plugin', 'metapackage']);
+		return sprintf('%s/%s/%s', $this->getBasePath(), $package->getPrettyName(), $package->getPrettyVersion());
 	}
 
 	/**
