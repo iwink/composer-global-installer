@@ -1,5 +1,8 @@
 # Composer global installer
 
+[![License](https://poser.pugx.org/iwink/composer-global-installer/license.png)](https://packagist.org/packages/iwink/composer-global-installer)
+[![Tag](https://img.shields.io/github/v/tag/iwink/composer-global-installer)](https://github.com/iwink/composer-global-installer/releases)
+
 A plugin to install stable, [remote](https://packagist.org/) [Composer](https://getcomposer.org) packages in a global 
 vendor directory. The path to a global installed package is 
 `[global-vendor-dir]/[pretty-package-name]/[pretty-package-version]`; for example, `symfony/console:v5.3.1` might be 
