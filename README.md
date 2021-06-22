@@ -28,16 +28,15 @@ Example:
 
 ```json
 {
-    ...
 	"extra": {
-        "global-installer": {
-            "path": "path/to/global/vendor",
-            "exclude": [
-                "vendor/package",
-                "vendor/package-two"
-            ]
-        }
-    }
+		"global-installer": {
+			"path": "path/to/global/vendor",
+			"exclude": [
+				"vendor/package",
+				"vendor/package-two"
+			]
+		}
+	}
 }
 
 ```
@@ -46,10 +45,9 @@ To disable the entire plugin, you can pass `false` to the `extra.global-installe
 
 ```json
 {
-    ...
 	"extra": {
-        "global-installer": false
-    }
+		"global-installer": false
+	}
 }
 
 ```
