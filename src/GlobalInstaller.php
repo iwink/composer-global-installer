@@ -41,7 +41,7 @@ class GlobalInstaller extends LibraryInstaller {
 	 * @param string[] $excludedPackages Array of excluded packages.
 	 */
 	public function __construct(IOInterface $io, Composer $composer, string $path, array $excludedPackages) {
-		parent::__construct($io, $composer, 'library', new Filesystem(new ProcessExecutor($io)));
+		parent::__construct($io, $composer, null, new Filesystem(new ProcessExecutor($io)));
 
 		$this->path = $path;
 		$this->excludedPackages = $excludedPackages;
