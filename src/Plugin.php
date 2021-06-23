@@ -75,8 +75,12 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 			return;
 		}
 
-		// Merge & validate options
-		$options = (object) array_merge_recursive(!is_array($globalOptions) ? [] : $globalOptions, $options);
+		// Merge options
+		$options = array_merge(!is_array($globalOptions) ? [] : $globalOptions, $options);
+		$options['exclude'] = array_unique(array_merge($globalOptions['exclude'] ?? [], $options['exclude'] ?? []));
+
+		// Validate options
+		$options = (object) $options;
 		$validator = new Validator();
 		$validator->validate(
 			$options, (object) ['$ref' => 'file://' . dirname(__DIR__) . '/res/schema.json'],
