@@ -19,11 +19,18 @@ use React\Promise\PromiseInterface;
  */
 class GlobalInstaller extends LibraryInstaller {
 	/**
+	 * Path to project directory.
+	 * @since $ver$
+	 * @var string
+	 */
+	private string $projectPath;
+
+	/**
 	 * Path to global directory.
 	 * @since $ver$
 	 * @var string
 	 */
-	private string $path;
+	private string $globalPath;
 
 	/**
 	 * Array of excluded packages (including vendor/ prefix).
@@ -37,13 +44,21 @@ class GlobalInstaller extends LibraryInstaller {
 	 * @since $ver$
 	 * @param IOInterface $io IO.
 	 * @param Composer $composer Composer.
-	 * @param string $path Path to global directory.
+	 * @param string $projectPath Path to project directory.
+	 * @param string $globalPath Path to global directory.
 	 * @param string[] $excludedPackages Array of excluded packages.
 	 */
-	public function __construct(IOInterface $io, Composer $composer, string $path, array $excludedPackages) {
+	public function __construct(
+		IOInterface $io,
+		Composer $composer,
+		string $projectPath,
+		string $globalPath,
+		array $excludedPackages
+	) {
 		parent::__construct($io, $composer, null, new Filesystem(new ProcessExecutor($io)));
 
-		$this->path = $path;
+		$this->projectPath = $projectPath;
+		$this->globalPath = $globalPath;
 		$this->excludedPackages = $excludedPackages;
 	}
 
@@ -98,12 +113,23 @@ class GlobalInstaller extends LibraryInstaller {
 		// Make sure the package is installed globally
 		$path = $this->getGlobalPath($package);
 		if (!Filesystem::isReadable($path)) {
+			// To make things even faster, download to system temp directory
+			$config = $this->composer->getConfig();
+
+			// - We can't change the download path so temporary move the vendor directory for this project
+			$vendor_dir = $config->get('vendor-dir');
+			$config->merge(['vendor-dir' => sys_get_temp_dir() . '/composer/' . md5($this->projectPath) . '/vendor']);
+
+			// - Download & install package to global path
 			SyncHelper::downloadAndInstallPackageSync(
 				$this->composer->getLoop(),
 				$this->composer->getDownloadManager()->getDownloader($package->getDistType()),
 				$path,
 				$package
 			);
+
+			// - Swap vendor dir back to previous
+			$config->merge(['vendor-dir' => $vendor_dir]);
 		}
 
 		// Change package to path repository and install locally
@@ -148,7 +174,7 @@ class GlobalInstaller extends LibraryInstaller {
 	 * @return string The path.
 	 */
 	public function getBasePath(): string {
-		return $this->path;
+		return $this->globalPath;
 	}
 
 	/**
