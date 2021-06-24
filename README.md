@@ -21,8 +21,8 @@ plugin global: `composer global require iwink/composer-global-installer`.
 You can configure the plugin using the `extra.global-installer` key in `composer.json` (and in the global 
 `$COMPOSER_HOME/composer.json`):
 
-- `path`: Path to global vendor directory.
-- `exclude`: Array of excluded package names (including vendor prefix), these packages will be installed local.
+- `path`: Path to global vendor directory. (default: `/usr/lib/composer/vendor/`)
+- `exclude`: Array of excluded package names (including vendor prefix), these packages will be installed locally.
 
 Example:
 
