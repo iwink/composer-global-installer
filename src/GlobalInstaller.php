@@ -111,30 +111,34 @@ class GlobalInstaller extends LibraryInstaller {
 		}
 
 		// Make sure the package is installed globally
-		$path = $this->getGlobalPath($package);
-		if (!Filesystem::isReadable($path)) {
+		$globalPath = $this->getGlobalPath($package);
+		if (!Filesystem::isReadable($globalPath)) {
 			// To make things even faster, download to system temp directory
 			$config = $this->composer->getConfig();
 
 			// - We can't change the download path so temporary move the vendor directory for this project
 			$vendor_dir = $config->get('vendor-dir');
-			$config->merge(['vendor-dir' => sys_get_temp_dir() . '/composer/' . md5($this->projectPath) . '/vendor']);
+			$config->merge([
+				'config' => [
+					'vendor-dir' => sys_get_temp_dir() . '/composer/' . md5($this->projectPath) . '/vendor',
+				],
+			]);
 
 			// - Download & install package to global path
 			SyncHelper::downloadAndInstallPackageSync(
 				$this->composer->getLoop(),
 				$this->composer->getDownloadManager()->getDownloader($package->getDistType()),
-				$path,
+				$globalPath,
 				$package
 			);
 
 			// - Swap vendor dir back to previous
-			$config->merge(['vendor-dir' => $vendor_dir]);
+			$config->merge(['config' => ['vendor-dir' => $vendor_dir]]);
 		}
 
 		// Change package to path repository and install locally
 		$package->setDistType('path');
-		$package->setDistUrl($path);
+		$package->setDistUrl($globalPath);
 		$package->setTransportOptions(['relative' => false]);
 
 		return parent::download($package, $prevPackage);
