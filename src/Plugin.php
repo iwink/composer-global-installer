@@ -9,6 +9,7 @@ use Composer\DependencyResolver\Operation\InstallOperation;
 use Composer\DependencyResolver\Operation\UpdateOperation;
 use Composer\EventDispatcher\EventDispatcher;
 use Composer\EventDispatcher\EventSubscriberInterface;
+use Composer\Factory;
 use Composer\Installer\PackageEvent;
 use Composer\Installer\PackageEvents;
 use Composer\IO\IOInterface;
@@ -100,17 +101,18 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 		}
 
 		// Check if path is writable
-		$path = $options->path;
-		if (!Filesystem::isReadable($path) || !is_writable($path)) {
+		$globalPath = $options->path;
+		if (!Filesystem::isReadable($globalPath) || !is_writable($globalPath)) {
 			$io->write('');
-			$io->write(sprintf('<error>Path "%s" is not writable for "%s", plugin disabled.</error>', $path, self::PACKAGE_NAME));
+			$io->write(sprintf('<error>Path "%s" is not writable for "%s", plugin disabled.</error>', $globalPath, self::PACKAGE_NAME));
 			$io->write('');
 
 			return;
 		}
 
 		// Register symlink installer
-		$this->installer = new GlobalInstaller($io, $composer, $path, $options->exclude);
+		$projectPath = dirname(Factory::getComposerFile());
+		$this->installer = new GlobalInstaller($io, $composer, $projectPath, $globalPath, $options->exclude);
 		$composer->getInstallationManager()->addInstaller($this->installer);
 
 		// Register symlink resolving autoloader
