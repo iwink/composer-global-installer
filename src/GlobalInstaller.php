@@ -187,7 +187,7 @@ class GlobalInstaller extends LibraryInstaller {
 	 * @return string The path.
 	 */
 	private function getGlobalPath(PackageInterface $package): ?string {
-		return sprintf('%s/%s/%s', $this->getBasePath(), $package->getPrettyName(), $package->getPrettyVersion());
+		return sprintf('%s/%s/%s', rtrim($this->getBasePath(), '/'), $package->getPrettyName(), $package->getPrettyVersion());
 	}
 
 	/**
