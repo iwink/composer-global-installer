@@ -6,7 +6,7 @@
 		"path": {
 			"type": "string",
 			"description": "Path to install directory.",
-			"default": "/usr/lib/composer/vendor"
+			"default": "/usr/local/composer/vendor/"
 		},
 		"exclude": {
 			"type": "array",
