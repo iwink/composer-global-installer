@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.1] - 2021-06-29
 ### Changed
-- Default path is now /usr/local/lib/composer/vendor/ due to OSX-restrictions.
+- Default path is now `/usr/local/lib/composer/vendor/` due to OSX-restrictions.
 
 ## [0.2.0] - 2021-06-24
 ### Changed
