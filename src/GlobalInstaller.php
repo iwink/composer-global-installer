@@ -58,7 +58,7 @@ class GlobalInstaller extends LibraryInstaller {
 		parent::__construct($io, $composer, null, new Filesystem(new ProcessExecutor($io)));
 
 		$this->projectPath = $projectPath;
-		$this->globalPath = $globalPath;
+		$this->globalPath = rtrim($globalPath, '/');
 		$this->excludedPackages = $excludedPackages;
 	}
 
