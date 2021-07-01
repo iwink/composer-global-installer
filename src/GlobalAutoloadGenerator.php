@@ -50,7 +50,7 @@ class GlobalAutoloadGenerator extends AutoloadGenerator {
 					}
 
 					// We can skip if the package isn't an absolute symlink
-					if ('path' !== $p->getDistType() || $p->getTransportOptions()['relative'] ?? true) {
+					if ('path' !== $p->getDistType() || ($p->getTransportOptions()['relative'] ?? true)) {
 						return false;
 					}
 
