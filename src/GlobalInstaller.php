@@ -15,33 +15,33 @@ use React\Promise\PromiseInterface;
 
 /**
  * Global installer.
- * @since $ver$
+ * @since 1.0.0
  */
 class GlobalInstaller extends LibraryInstaller {
 	/**
 	 * Path to project directory.
-	 * @since $ver$
+	 * @since 1.0.0
 	 * @var string
 	 */
 	private string $projectPath;
 
 	/**
 	 * Path to global directory.
-	 * @since $ver$
+	 * @since 1.0.0
 	 * @var string
 	 */
 	private string $globalPath;
 
 	/**
 	 * Array of excluded packages (including vendor/ prefix).
-	 * @since $ver$
+	 * @since 1.0.0
 	 * @var string[]
 	 */
 	private array $excludedPackages;
 
 	/**
 	 * Creates a new installer.
-	 * @since $ver$
+	 * @since 1.0.0
 	 * @param IOInterface $io IO.
 	 * @param Composer $composer Composer.
 	 * @param string $projectPath Path to project directory.
@@ -64,7 +64,7 @@ class GlobalInstaller extends LibraryInstaller {
 
 	/**
 	 * @inheritDoc
-	 * @since $ver$
+	 * @since 1.0.0
 	 */
 	public function supports($packageType): bool {
 		return !in_array($packageType, ['composer-installer', 'composer-plugin', 'metapackage']);
@@ -72,7 +72,7 @@ class GlobalInstaller extends LibraryInstaller {
 
 	/**
 	 * @inheritDoc
-	 * @since $ver$
+	 * @since 1.0.0
 	 */
 	public function getInstallPath(PackageInterface $package): string {
 		// Path repositories are always installed locally
@@ -88,7 +88,7 @@ class GlobalInstaller extends LibraryInstaller {
 	 *
 	 * Check both global & local paths for supported packages.
 	 *
-	 * @since $ver$
+	 * @since 1.0.0
 	 */
 	public function isInstalled(InstalledRepositoryInterface $repo, PackageInterface $package): bool {
 		if (!$this->supportsGlobalPath($package)) {
@@ -103,7 +103,7 @@ class GlobalInstaller extends LibraryInstaller {
 	 *
 	 * For supported packages, make sure they're installed globally. The locally installed packages are symlinks.
 	 *
-	 * @since $ver$
+	 * @since 1.0.0
 	 */
 	public function download(PackageInterface $package, PackageInterface $prevPackage = null): ?PromiseInterface {
 		if (!$this->supportsGlobalPath($package)) {
@@ -148,7 +148,7 @@ class GlobalInstaller extends LibraryInstaller {
 	 *
 	 * Remove symlinks to globally installed packages.
 	 *
-	 * @since $ver$
+	 * @since 1.0.0
 	 */
 	protected function removeCode(PackageInterface $package): ?PromiseInterface {
 		$promise = parent::removeCode($package);
@@ -173,7 +173,7 @@ class GlobalInstaller extends LibraryInstaller {
 
 	/**
 	 * Returns the global installer base path.
-	 * @since $ver$
+	 * @since 1.0.0
 	 * @return string The path.
 	 */
 	public function getBasePath(): string {
@@ -182,7 +182,7 @@ class GlobalInstaller extends LibraryInstaller {
 
 	/**
 	 * Returns the global path for a package.
-	 * @since $ver$
+	 * @since 1.0.0
 	 * @param PackageInterface $package Package.
 	 * @return string The path.
 	 */
@@ -192,7 +192,7 @@ class GlobalInstaller extends LibraryInstaller {
 
 	/**
 	 * Checks if a package supports a global path.
-	 * @since $ver$
+	 * @since 1.0.0
 	 * @param PackageInterface $package The package.
 	 * @return bool If a global path is supported.
 	 */
