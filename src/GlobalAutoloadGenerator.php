@@ -12,12 +12,12 @@ use Composer\Util\Filesystem;
 
 /**
  * Autoload generator for globally installed packages.
- * @since $ver$
+ * @since 1.0.0
  */
 class GlobalAutoloadGenerator extends AutoloadGenerator {
 	/**
 	 * Array of globally installed package paths.
-	 * @since $ver$
+	 * @since 1.0.0
 	 * @var string[]
 	 */
 	private array $globalPaths = [];
@@ -27,7 +27,7 @@ class GlobalAutoloadGenerator extends AutoloadGenerator {
 	 *
 	 * Builds an array of globally installed package-paths which is used to determine the autoloader paths.
 	 *
-	 * @since $ver$
+	 * @since 1.0.0
 	 */
 	public function dump(
 		Config $config,
@@ -72,7 +72,7 @@ class GlobalAutoloadGenerator extends AutoloadGenerator {
 	 *
 	 * If the requested path is a valid global install path, return it without modification.
 	 *
-	 * @since $ver$
+	 * @since 1.0.0
 	 */
 	protected function getPathCode(Filesystem $filesystem, $basePath, $vendorPath, $path): string {
 		$resolvedPath = realpath($path);

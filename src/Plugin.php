@@ -25,40 +25,40 @@ use Symfony\Component\Console\Input\ArgvInput;
 
 /**
  * Global installer plugin for Composer.
- * @since $ver$
+ * @since 1.0.0
  */
 class Plugin implements PluginInterface, EventSubscriberInterface {
 	/**
 	 * The name of the package.
-	 * @since $ver$
+	 * @since 1.0.0
 	 * @var string
 	 */
 	public const PACKAGE_NAME = 'iwink/composer-global-installer';
 
 	/**
 	 * Global installer.
-	 * @since $ver$
+	 * @since 1.0.0
 	 * @var GlobalInstaller|null
 	 */
 	private ?GlobalInstaller $installer = null;
 
 	/**
 	 * Composer's original autoload generator.
-	 * @since $ver$
+	 * @since 1.0.0
 	 * @var AutoloadGenerator|null
 	 */
 	private ?AutoloadGenerator $autoloadGenerator = null;
 
 	/**
 	 * Array containing the autoload generator options.
-	 * @since $ver$
+	 * @since 1.0.0
 	 * @var array
 	 */
 	private array $autoloadGeneratorOptions = [];
 
 	/**
 	 * @inheritDoc
-	 * @since $ver$
+	 * @since 1.0.0
 	 */
 	public function activate(Composer $composer, IOInterface $io): void {
 		// Try to load global options
@@ -166,7 +166,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 
 	/**
 	 * @inheritDoc
-	 * @since $ver$
+	 * @since 1.0.0
 	 */
 	public function deactivate(Composer $composer, IOInterface $io): void {
 		if ($this->installer instanceof GlobalInstaller) {
@@ -181,14 +181,14 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 
 	/**
 	 * @inheritDoc
-	 * @since $ver$
+	 * @since 1.0.0
 	 */
 	public function uninstall(Composer $composer, IOInterface $io): void {
 	}
 
 	/**
 	 * @inheritDoc
-	 * @since $ver$
+	 * @since 1.0.0
 	 */
 	public static function getSubscribedEvents(): array {
 		return [
@@ -199,7 +199,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 
 	/**
 	 * Triggers an additional autoloader dump when required.
-	 * @since $ver$
+	 * @since 1.0.0
 	 * @param PackageEvent $event The event.
 	 */
 	public function dumpAutoloader(PackageEvent $event): void {
