@@ -62,6 +62,6 @@ or more of your projects depend on such libraries, you can exclude them in the g
 `composer global config --json extra.global-installer.exclude '["laminas/laminas-zendframework-bridge", "phpunit/phpunit"]'`
 
 ### Packages with patches
-If you use a seperate plugin to apply patches to packages, it might not be a good idea to install them globally.
+If you use a seperate plugin to apply patches to packages, it might not be a good idea to install those packages globally.
 Other projects, which use the same package, will recieve the changes from the applied patch as well.
 To prevent this, we recommend excluding packages which you have patched.
