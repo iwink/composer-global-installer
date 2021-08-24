@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Iwink\ComposerGlobalInstaller;
 
 use Composer\Autoload\AutoloadGenerator;
