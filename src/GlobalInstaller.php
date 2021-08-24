@@ -123,14 +123,10 @@ class GlobalInstaller extends LibraryInstaller
             // To make things even faster, download to system temp directory:
             // 1. We can't change the download path so temporary move the vendor directory for this project
             $config = $this->composer->getConfig();
-            $vendor_dir = $config->get('vendor-dir');
-            $config->merge([
-                               'config' => [
-                                   'vendor-dir' => sys_get_temp_dir() . '/composer/' . md5(
-                                           $this->projectPath
-                                       ) . '/vendor',
-                               ],
-                           ]);
+            $oldVendorDir = $config->get('vendor-dir');
+
+            $newVendorDir = sys_get_temp_dir() . '/composer/' . md5($this->projectPath) . '/vendor';
+            $config->merge(['config' => ['vendor-dir' => $newVendorDir]]);
 
             // 2. Download & install package to global path
             SyncHelper::downloadAndInstallPackageSync(
@@ -141,7 +137,7 @@ class GlobalInstaller extends LibraryInstaller
             );
 
             // 3. Swap vendor dir back to previous
-            $config->merge(['config' => ['vendor-dir' => $vendor_dir]]);
+            $config->merge(['config' => ['vendor-dir' => $oldVendorDir]]);
         }
 
         // Change package to path repository and install locally
