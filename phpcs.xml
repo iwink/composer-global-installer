@@ -10,5 +10,5 @@
     <arg value="np"/>
 
     <!-- Include the whole PSR12 standard -->
-    <rule ref="PSR12"/ >
+    <rule ref="PSR12"/>
 </ruleset>
