@@ -241,7 +241,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
                     $io = new NullIO();
 
                     // Create a `null` event dispatcher so we don't trigger additional events
-                    $eventDispatcher = new class($composer, $io) extends EventDispatcher {
+                    $eventDispatcher = new class ($composer, $io) extends EventDispatcher {
                         protected function doDispatch(\Composer\EventDispatcher\Event $event): int
                         {
                             return 0;
