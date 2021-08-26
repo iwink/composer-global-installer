@@ -1,10 +1,14 @@
-name: Tests
-on: [push]
+name: PHPCS check
+
+on: pull_request
+
 jobs:
-  test:
+  phpcs:
+    name: PHPCS
     runs-on: ubuntu-latest
     steps:
-      - name: PHP_CodeSniffer Check with Annotations
-        # You may pin to the exact commit or the version.
-        # uses: chekalsky/phpcs-action@e269c2f264f400adcda7c6b24c8550302350d495
-        uses: chekalsky/phpcs-action@v1.2.0
+      - uses: actions/checkout@v2
+      - name: PHPCS check
+        uses: chekalsky/phpcs-action@v1
+        with:
+            enable_warnings: true
