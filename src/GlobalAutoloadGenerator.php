@@ -88,6 +88,10 @@ class GlobalAutoloadGenerator extends AutoloadGenerator
     protected function getPathCode(Filesystem $filesystem, $basePath, $vendorPath, $path): string
     {
         $resolvedPath = realpath($path);
+        if (false === $resolvedPath) {
+            throw new \InvalidArgumentException(sprintf('Could not resolve path "%s"', $path));
+        }
+
         foreach ($this->globalPaths as $globalPath) {
             if (0 === strpos($resolvedPath, $globalPath)) {
                 return var_export($filesystem->normalizePath($resolvedPath), true);
