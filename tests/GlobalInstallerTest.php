@@ -70,7 +70,7 @@ class GlobalInstallerTest extends TestCase
     }
 
     /**
-     * Unit test for {@see GlobalInstaller::getInstallPath()} with allowed path.
+     * Test case for {@see GlobalInstaller::getInstallPath()} with allowed path.
      * @since $ver$
      */
     public function testGetInstallPathWithAllowed(): void
@@ -85,7 +85,7 @@ class GlobalInstallerTest extends TestCase
     }
 
     /**
-     * Unit test for {@see GlobalInstaller::getInstallPath()} with non-allowed path.
+     * Test case for {@see GlobalInstaller::getInstallPath()} with non-allowed path.
      * @since $ver$
      */
     public function testGetInstallPathWithoutAllowed(): void
@@ -96,6 +96,21 @@ class GlobalInstallerTest extends TestCase
             'getStability' => 'dev',
         ]);
 
-        self::assertSame(realpath('/tmp/composer').'/my-package', $this->installer->getInstallPath($package));
+        self::assertSame(realpath('/tmp/composer') . '/my-package', $this->installer->getInstallPath($package));
+    }
+
+    /**
+     * Test case for {@see GlobalInstaller::getInstallPath()} with a `path` type.
+     */
+    public function testGetInstallPathWithPath(): void
+    {
+        $package = $this->createConfiguredMock(PackageInterface::class, [
+            'getDistType' => 'path',
+            'getPrettyName' => 'my-package',
+            'getPrettyVersion' => '1.0.1',
+            'getStability' => 'stable',
+        ]);
+
+        self::assertSame(realpath('/tmp/composer') . '/my-package', $this->installer->getInstallPath($package));
     }
 }
