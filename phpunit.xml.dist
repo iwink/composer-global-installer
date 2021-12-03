@@ -12,6 +12,10 @@
         </testsuite>
     </testsuites>
 
+    <php>
+        <env name="COMPOSER_HOME" value="/tmp/composer"/>
+    </php>
+
     <coverage cacheDirectory=".phpunit.cache/code-coverage"
               processUncoveredFiles="true">
         <include>
