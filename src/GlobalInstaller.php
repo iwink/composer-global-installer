@@ -204,11 +204,12 @@ class GlobalInstaller extends LibraryInstaller
      * @param PackageInterface $package The package.
      * @return bool If a global path is supported.
      */
-    private function supportsGlobalPath(PackageInterface $package): bool {
-	    if (!in_array($package->getStability(), $this->options->stabilities ?? [], true)) {
-		    return false;
-	    }
+    private function supportsGlobalPath(PackageInterface $package): bool
+    {
+        if (!in_array($package->getStability(), $this->options->stabilities ?? [], true)) {
+            return false;
+        }
 
-	    return !in_array($package->getPrettyName(), $this->options->excluded ?? [], true);
+        return !in_array($package->getPrettyName(), $this->options->excluded ?? [], true);
     }
 }
