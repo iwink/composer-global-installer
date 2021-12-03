@@ -11,6 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Unit tests for {@see GlobalInstaller}.
+ * @since $ver$
  */
 class GlobalInstallerTest extends TestCase
 {
@@ -101,6 +102,7 @@ class GlobalInstallerTest extends TestCase
 
     /**
      * Test case for {@see GlobalInstaller::getInstallPath()} with a `path` type.
+     * @since $ver$
      */
     public function testGetInstallPathWithPath(): void
     {
