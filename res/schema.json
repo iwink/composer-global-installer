@@ -17,6 +17,16 @@
         "description": "Package name, including 'vendor-name/' prefix.",
         "pattern": "^[a-z0-9]([_.-]?[a-z0-9]+)*/[a-z0-9](([_.]?|-{0,2})[a-z0-9]+)*$"
       }
+    },
+    "stabilities": {
+      "type": "array",
+      "description": "Array of supported branch stabilities.",
+      "default": ["alpha", "beta", "stable", "RC"],
+      "items": {
+        "type": "string",
+        "description": "Stability flag, like: 'stable' or 'beta'.",
+        "enum": ["alpha", "beta", "rc", "RC", "stable"]
+      }
     }
   }
 }

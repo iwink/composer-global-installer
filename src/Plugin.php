@@ -123,7 +123,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
 
         // Register symlink installer
         $projectPath = dirname(Factory::getComposerFile());
-        $this->installer = new GlobalInstaller($io, $composer, $projectPath, $globalPath, $options->exclude);
+        $this->installer = new GlobalInstaller($io, $composer, $projectPath, $globalPath, $options);
         $composer->getInstallationManager()->addInstaller($this->installer);
 
         // Register symlink resolving autoloader
