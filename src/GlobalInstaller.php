@@ -206,7 +206,7 @@ class GlobalInstaller extends LibraryInstaller
      */
     private function supportsGlobalPath(PackageInterface $package): bool
     {
-        if ('stable' !== $package->getStability()) {
+        if (!in_array($package->getStability(), ['stable', 'RC'])) {
             return false;
         }
 
