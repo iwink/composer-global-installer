@@ -25,7 +25,7 @@
       "items": {
         "type": "string",
         "description": "Stability flag, like: 'stable' or 'beta'.",
-        "enum": ["alpha", "beta", "rc", "RC", "stable"]
+        "enum": ["alpha", "beta", "RC", "stable"]
       }
     }
   }
