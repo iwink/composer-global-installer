@@ -17,12 +17,12 @@
 	],
 	"require": {
 		"php": ">=7.4",
-		"composer-plugin-api": "^2.1",
-		"phpunit/phpunit": "^9.5"
+		"composer-plugin-api": "^2.1"
 	},
 	"require-dev": {
 		"composer/composer": "^2.1",
-		"justinrainbow/json-schema": "^5.2"
+		"justinrainbow/json-schema": "^5.2",
+		"phpunit/phpunit": "^9.5"
 	},
 	"autoload": {
 		"psr-4": {
