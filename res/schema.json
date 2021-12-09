@@ -21,7 +21,7 @@
     "stabilities": {
       "type": "array",
       "description": "Array of supported branch stabilities.",
-      "default": ["alpha", "beta", "stable", "RC"],
+      "default": ["alpha", "beta", "RC", "stable"],
       "items": {
         "type": "string",
         "description": "Stability flag, like: 'stable' or 'beta'.",
