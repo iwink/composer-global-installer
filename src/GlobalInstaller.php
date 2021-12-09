@@ -36,11 +36,11 @@ class GlobalInstaller extends LibraryInstaller
     private string $globalPath;
 
     /**
-     * Array of excluded packages (including vendor/ prefix).
+     * The plugin options.
      * @since 1.0.0
-     * @var string[]
+     * @var object
      */
-    private array $excludedPackages;
+    private object $options;
 
     /**
      * Creates a new installer.
@@ -49,20 +49,20 @@ class GlobalInstaller extends LibraryInstaller
      * @param Composer $composer Composer.
      * @param string $projectPath Path to project directory.
      * @param string $globalPath Path to global directory.
-     * @param string[] $excludedPackages Array of excluded packages.
+     * @param object $options The plugin options.
      */
     public function __construct(
         IOInterface $io,
         Composer $composer,
         string $projectPath,
         string $globalPath,
-        array $excludedPackages
+        object $options
     ) {
         parent::__construct($io, $composer, null, new Filesystem(new ProcessExecutor($io)));
 
         $this->projectPath = $projectPath;
         $this->globalPath = rtrim($globalPath, '/');
-        $this->excludedPackages = $excludedPackages;
+        $this->options = $options;
     }
 
     /**
@@ -206,10 +206,10 @@ class GlobalInstaller extends LibraryInstaller
      */
     private function supportsGlobalPath(PackageInterface $package): bool
     {
-        if ('stable' !== $package->getStability()) {
+        if (!in_array($package->getStability(), $this->options->stabilities ?? [], true)) {
             return false;
         }
 
-        return !in_array($package->getPrettyName(), $this->excludedPackages, true);
+        return !in_array($package->getPrettyName(), $this->options->excluded ?? [], true);
     }
 }
