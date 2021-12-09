@@ -11,27 +11,27 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Unit tests for {@see GlobalInstaller}.
- * @since $ver$
+ * @since 1.1.0
  */
 class GlobalInstallerTest extends TestCase
 {
     /**
      * The composer instance.
-     * @since $ver$
+     * @since 1.1.0
      * @var Composer
      */
     private Composer $composer;
 
     /**
      * The installer under test.
-     * @since $ver$
+     * @since 1.1.0
      * @var GlobalInstaller
      */
     private GlobalInstaller $installer;
 
     /**
      * @inheritDoc
-     * @since $ver$
+     * @since 1.1.0
      */
     protected function setUp(): void
     {
@@ -60,7 +60,7 @@ class GlobalInstallerTest extends TestCase
 
     /**
      * Test case for {@see GlobalInstaller::supports()}.
-     * @since $ver$
+     * @since 1.1.0
      * @testWith ["composer-installer"]
      *           ["composer-plugin"]
      *           ["metapackage"]
@@ -72,7 +72,7 @@ class GlobalInstallerTest extends TestCase
 
     /**
      * Test case for {@see GlobalInstaller::getInstallPath()} with allowed path.
-     * @since $ver$
+     * @since 1.1.0
      */
     public function testGetInstallPathWithAllowed(): void
     {
@@ -87,7 +87,7 @@ class GlobalInstallerTest extends TestCase
 
     /**
      * Test case for {@see GlobalInstaller::getInstallPath()} with non-allowed path.
-     * @since $ver$
+     * @since 1.1.0
      */
     public function testGetInstallPathWithoutAllowed(): void
     {
@@ -102,7 +102,7 @@ class GlobalInstallerTest extends TestCase
 
     /**
      * Test case for {@see GlobalInstaller::getInstallPath()} with a `path` type.
-     * @since $ver$
+     * @since 1.1.0
      */
     public function testGetInstallPathWithPath(): void
     {
