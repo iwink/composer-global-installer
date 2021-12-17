@@ -210,6 +210,6 @@ class GlobalInstaller extends LibraryInstaller
             return false;
         }
 
-        return !in_array($package->getPrettyName(), $this->options->excluded ?? [], true);
+        return !in_array($package->getPrettyName(), $this->options->exclude ?? [], true);
     }
 }
