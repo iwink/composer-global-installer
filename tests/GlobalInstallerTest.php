@@ -119,7 +119,7 @@ class GlobalInstallerTest extends TestCase
 
     /**
      * Test case for {@see GlobalInstaller::getInstallPath()} with an excluded package.
-     * @since 1.1.0
+     * @since 1.1.1
      */
     public function testGetInstallPathWithExcluded(): void
     {
