@@ -123,7 +123,7 @@ class GlobalInstallerTest extends TestCase
      */
     public function testGetInstallPathWithExcluded(): void
     {
-          $package = $this->createConfiguredMock(PackageInterface::class, [
+        $package = $this->createConfiguredMock(PackageInterface::class, [
             'getPrettyName' => 'is-excluded',
             'getPrettyVersion' => '1.0.1',
             'getStability' => 'stable',
