@@ -54,7 +54,7 @@ class GlobalInstallerTest extends TestCase
             '/global-dir',
             (object)[
                 'stabilities' => ['stable'],
-	            'exclude' => ['is-excluded'],
+                'exclude' => ['is-excluded'],
             ],
         );
     }
