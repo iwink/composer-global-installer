@@ -54,6 +54,7 @@ class GlobalInstallerTest extends TestCase
             '/global-dir',
             (object)[
                 'stabilities' => ['stable'],
+                'exclude' => ['is-excluded'],
             ],
         );
     }
@@ -114,5 +115,20 @@ class GlobalInstallerTest extends TestCase
         ]);
 
         self::assertSame(realpath('/tmp/composer') . '/my-package', $this->installer->getInstallPath($package));
+    }
+
+    /**
+     * Test case for {@see GlobalInstaller::getInstallPath()} with an excluded package.
+     * @since 1.1.1
+     */
+    public function testGetInstallPathWithExcluded(): void
+    {
+        $package = $this->createConfiguredMock(PackageInterface::class, [
+            'getPrettyName' => 'is-excluded',
+            'getPrettyVersion' => '1.0.1',
+            'getStability' => 'stable',
+        ]);
+
+        self::assertSame(realpath('/tmp/composer') . '/is-excluded', $this->installer->getInstallPath($package));
     }
 }

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2022-02-11
+### Fixed
+- Fixed the `exclude` option.
+
 ## [1.1.0] - 2021-12-09
 ### Added
 - Added support for alpha, beta, and RC releases.
@@ -50,7 +54,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Support for a global installer directory.
 
-[Unreleased]: https://github.com/iwink/composer-global-installer/compare/v1.1.0...main
+[Unreleased]: https://github.com/iwink/composer-global-installer/compare/v1.1.1...main
+[1.1.1]: https://github.com/iwink/composer-global-installer/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/iwink/composer-global-installer/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/iwink/composer-global-installer/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/iwink/composer-global-installer/compare/v1.0.0...v1.0.1
