@@ -135,7 +135,7 @@ class GlobalInstallerTest extends TestCase
 
     /**
      * Test case for {@see GlobalInstaller::getInstallPath()} with a package that has binaries.
-     * @since $ver$
+     * @since 1.2.0
      * @param bool $exclude_bin Whether the installer should exclude packages with a binary.
      * @param bool $has_binary Whether the package has a binary.
      * @param bool $expects_global_dir Whether the result should return the global vendor dir.

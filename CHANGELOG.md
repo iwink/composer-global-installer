@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.2.0] - 2022-03-07
 ### Added
 - Added the `exclude-bin` option to exclude any package that defines a binary (default `false`).
 
@@ -56,7 +58,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Support for a global installer directory.
 
-[Unreleased]: https://github.com/iwink/composer-global-installer/compare/v1.1.1...main
+[Unreleased]: https://github.com/iwink/composer-global-installer/compare/v1.2.0...main
+[1.2.0]: https://github.com/iwink/composer-global-installer/compare/v1.1.1...v1.2.0
 [1.1.1]: https://github.com/iwink/composer-global-installer/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/iwink/composer-global-installer/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/iwink/composer-global-installer/compare/v1.0.1...v1.0.2
