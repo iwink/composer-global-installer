@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- Added the `exclude-bin` option to exclude any package that defines a binary (default `true`).
+- Added the `exclude-bin` option to exclude any package that defines a binary (default `false`).
 
 ## [1.1.1] - 2022-02-11
 ### Fixed

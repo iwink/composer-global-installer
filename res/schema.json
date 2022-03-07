@@ -21,7 +21,7 @@
     "exclude-bin": {
       "type": "boolean",
       "description": "Excludes packages that define a binary file.",
-      "default": true
+      "default": false
     },
     "stabilities": {
       "type": "array",

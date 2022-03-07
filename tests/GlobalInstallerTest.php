@@ -140,7 +140,7 @@ class GlobalInstallerTest extends TestCase
      * @param bool $has_binary Whether the package has a binary.
      * @param bool $expects_global_dir Whether the result should return the global vendor dir.
      * @testWith [true, true, false]
-     *           [null, true, false]
+     *           [null, true, true]
      *           [false, true, true]
      *           [false, false, true]
      */

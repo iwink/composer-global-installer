@@ -210,7 +210,7 @@ class GlobalInstaller extends LibraryInstaller
             return false;
         }
 
-        if (($this->options->{'exclude-bin'} ?? true) && $package->getBinaries()) {
+        if (($this->options->{'exclude-bin'} ?? false) && $package->getBinaries()) {
             return false;
         }
 
