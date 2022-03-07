@@ -44,7 +44,7 @@ class GlobalInstallerTest extends TestCase
         $config->merge([
             'config' => [
                 'vendor-dir' => '/tmp/composer',
-            ]
+            ],
         ]);
         $this->composer->setConfig($config);
         $this->installer = new GlobalInstaller(
@@ -55,6 +55,7 @@ class GlobalInstallerTest extends TestCase
             (object)[
                 'stabilities' => ['stable'],
                 'exclude' => ['is-excluded'],
+                'exclude-bin' => true,
             ],
         );
     }
@@ -130,5 +131,50 @@ class GlobalInstallerTest extends TestCase
         ]);
 
         self::assertSame(realpath('/tmp/composer') . '/is-excluded', $this->installer->getInstallPath($package));
+    }
+
+    /**
+     * Test case for {@see GlobalInstaller::getInstallPath()} with a package that has binaries.
+     * @since $ver$
+     * @param bool $exclude_bin Whether the installer should exclude packages with a binary.
+     * @param bool $has_binary Whether the package has a binary.
+     * @param bool $expects_global_dir Whether the result should return the global vendor dir.
+     * @testWith [true, true, false]
+     *           [null, true, true]
+     *           [false, true, true]
+     *           [false, false, true]
+     */
+    public function testGetInstallPathWithExcludedBinaries(
+        ?bool $exclude_bin,
+        bool $has_binary,
+        bool $expects_global_dir
+    ): void {
+        $installer = new GlobalInstaller(
+            new NullIO(),
+            $this->composer,
+            '/project-dir',
+            '/global-dir',
+            (object)[
+                'stabilities' => ['stable'],
+                'exclude-bin' => $exclude_bin,
+            ],
+        );
+        $config = [
+            'getPrettyName' => 'has-binaries',
+            'getPrettyVersion' => '1.0.1',
+            'getStability' => 'stable',
+        ];
+
+        if ($has_binary) {
+            $config['getBinaries'] = ['bin/some-binary'];
+        }
+
+        $package = $this->createConfiguredMock(PackageInterface::class, $config);
+
+        $expected_path = $expects_global_dir
+            ? '/global-dir/has-binaries/1.0.1'
+            : realpath('/tmp/composer') . '/has-binaries';
+
+        self::assertSame($expected_path, $installer->getInstallPath($package));
     }
 }

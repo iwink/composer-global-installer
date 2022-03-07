@@ -18,6 +18,11 @@
         "pattern": "^[a-z0-9]([_.-]?[a-z0-9]+)*/[a-z0-9](([_.]?|-{0,2})[a-z0-9]+)*$"
       }
     },
+    "exclude-bin": {
+      "type": "boolean",
+      "description": "Excludes packages that define a binary file.",
+      "default": false
+    },
     "stabilities": {
       "type": "array",
       "description": "Array of supported branch stabilities.",

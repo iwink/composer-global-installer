@@ -210,6 +210,10 @@ class GlobalInstaller extends LibraryInstaller
             return false;
         }
 
+        if (($this->options->{'exclude-bin'} ?? false) && $package->getBinaries()) {
+            return false;
+        }
+
         return !in_array($package->getPrettyName(), $this->options->exclude ?? [], true);
     }
 }
