@@ -23,7 +23,7 @@ You can configure the plugin using the `extra.global-installer` key in `composer
 
 - `path`: Path to global vendor directory. (default: `/usr/local/lib/composer/vendor/`)
 - `exclude`: Array of excluded package names (including vendor prefix), these packages will be installed locally.
-- `exclude-bin`: Whether to exclude any packages that hold a binary. (default: `true`)
+- `exclude-bin`: Whether to exclude any packages that hold a binary. (default: `false`)
 - `stabilities`: Array of supported branch stabilities. (default: `["alpha", "beta", "RC", "stable"]`)
 
 Example:
@@ -37,6 +37,7 @@ Example:
 				"vendor/package",
 				"vendor/package-two"
 			],
+			"exclude-bin": true,
 			"stabilities": ["stable"]
 		}
 	}
