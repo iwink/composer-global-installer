@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Iwink\ComposerGlobalInstaller;
 
 use Composer\Autoload\AutoloadGenerator;
+use Composer\ClassMapGenerator\ClassMap;
 use Composer\Config;
 use Composer\Installer\InstallationManager;
 use Composer\Package\PackageInterface;
@@ -40,7 +41,7 @@ class GlobalAutoloadGenerator extends AutoloadGenerator
         $targetDir,
         $scanPsrPackages = false,
         $suffix = ''
-    ): int {
+    ): ClassMap {
         $this->globalPaths = array_map(
             static fn(PackageInterface $p): string => $p->getDistUrl(),
             array_filter(
